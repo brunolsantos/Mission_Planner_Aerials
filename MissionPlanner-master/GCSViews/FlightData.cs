@@ -1272,7 +1272,7 @@ namespace MissionPlanner.GCSViews
                             try
                             {
                                 //dist = (float)new PointLatLngAlt(home.x, home.y).GetDistance(new PointLatLngAlt(lastplla.x, lastplla.y));
-                                // distanceBar1.AddWPDist(dist);
+                                //distanceBar1.AddWPDist(dist);
                             }
                             catch
                             {

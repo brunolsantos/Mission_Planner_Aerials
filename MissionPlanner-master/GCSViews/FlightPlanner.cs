@@ -44,16 +44,16 @@ namespace MissionPlanner.GCSViews
     public partial class FlightPlanner : MyUserControl, IDeactivate, IActivate
     {
         private static readonly ILog log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        int selectedrow;
-        public bool quickadd;
+        int selectedrow = 0;//int selectedrow;
+        public bool quickadd = false;//public bool quickadd;
         bool isonline = true;
-        bool sethome;
-        bool polygongridmode;
+        bool sethome = false;//bool sethome;
+        bool polygongridmode = false;//bool polygongridmode;
         Hashtable param = new Hashtable();
-        bool splinemode;
+        bool splinemode = false;//bool splinemode;
         altmode currentaltmode = altmode.Relative;
 
-        bool grid;
+        bool grid = false;//bool grid;
 
         public static FlightPlanner instance;
 
@@ -77,7 +77,7 @@ namespace MissionPlanner.GCSViews
         public enum altmode
         {
             Relative = MAVLink.MAV_FRAME.GLOBAL_RELATIVE_ALT,
-           // Absolute = MAVLink.MAV_FRAME.GLOBAL,
+            Absolute = MAVLink.MAV_FRAME.GLOBAL,
             Terrain = MAVLink.MAV_FRAME.GLOBAL_TERRAIN_ALT
         }
 
@@ -264,15 +264,15 @@ namespace MissionPlanner.GCSViews
                     if (CHK_verifyheight.Checked) // use srtm data
                     {
                         // is absolute but no verify
-                        /*if ((altmode) CMB_altmode.SelectedValue == altmode.Absolute)
+                        if ((altmode) CMB_altmode.SelectedValue == altmode.Absolute)
                         {
                             //abs
                             cell.Value =
                                 ((srtm.getAltitude(lat, lng).alt)*CurrentState.multiplierdist +
                                  int.Parse(TXT_DefaultAlt.Text)).ToString();
-                        }*/
-                        //else
-                        //{
+                        }
+                        else
+                        {
                             //relative and verify
                             cell.Value =
                                 ((int) (srtm.getAltitude(lat, lng).alt)*CurrentState.multiplierdist +
@@ -281,7 +281,7 @@ namespace MissionPlanner.GCSViews
                                      srtm.getAltitude(MainV2.comPort.MAV.cs.HomeLocation.Lat,
                                          MainV2.comPort.MAV.cs.HomeLocation.Lng).alt*CurrentState.multiplierdist)
                                     .ToString();
-                        //}
+                        }
                     }
 
                     cell.DataGridView.EndEdit();
@@ -525,7 +525,18 @@ namespace MissionPlanner.GCSViews
 
             //set default
             CMB_altmode.SelectedItem = altmode.Relative;
-            //CMB_altmode.Items.RemoveAt(1);
+            
+            //set home
+	        try
+            {
+	           if (TXT_homelat.Text != "")
+	           {
+	                MainMap.Position = new PointLatLng(double.Parse(TXT_homelat.Text), double.Parse(TXT_homelng.Text));
+	                MainMap.Zoom = 13;
+	           }
+	
+	        }
+	        catch (Exception) { }
 
             RegeneratePolygon();
 
@@ -1206,10 +1217,10 @@ namespace MissionPlanner.GCSViews
                 catch
                 {
                 }
-                /*if ((altmode) CMB_altmode.SelectedValue == altmode.Absolute)
+                if ((altmode) CMB_altmode.SelectedValue == altmode.Absolute)
                 {
                     homealt = 0; // for absolute we dont need to add homealt
-                }*/
+                }
 
                 int usable = 0;
 
@@ -1922,14 +1933,14 @@ namespace MissionPlanner.GCSViews
         /// <param name="e"></param>
         private void BUT_write_Click(object sender, EventArgs e)
         {
-            /*if ((altmode) CMB_altmode.SelectedValue == altmode.Absolute)
+            if ((altmode) CMB_altmode.SelectedValue == altmode.Absolute)
             {
                 if (DialogResult.No ==
                     CustomMessageBox.Show("Absolute Alt is selected are you sure?", "Alt Mode", MessageBoxButtons.YesNo))
                 {
                     CMB_altmode.SelectedValue = (int) altmode.Relative;
                 }
-            }*/
+            }
 
             // check for invalid grid data
             for (int a = 0; a < Commands.Rows.Count - 0; a++)
@@ -2179,10 +2190,10 @@ namespace MissionPlanner.GCSViews
                         {
                             frame = MAVLink.MAV_FRAME.GLOBAL_TERRAIN_ALT;
                         }
-                        /*else if (mode == altmode.Absolute)
+                        else if (mode == altmode.Absolute)
                         {
                             frame = MAVLink.MAV_FRAME.GLOBAL;
-                        }*/
+                        }
                         else
                         {
                             frame = MAVLink.MAV_FRAME.GLOBAL_RELATIVE_ALT;
@@ -2318,12 +2329,11 @@ namespace MissionPlanner.GCSViews
                 if (temp.id < (byte) MAVLink.MAV_CMD.LAST || temp.id == (byte) MAVLink.MAV_CMD.DO_SET_HOME)
                 {
                     // check ralatice and terrain flags
-                    /*if ((temp.options & 0x9) == 0 && i != 0)
+                    if ((temp.options & 0x9) == 0 && i != 0)
                     {
                         CMB_altmode.SelectedValue = (int) altmode.Absolute;
                     } // check terrain flag
-                    else if ((temp.options & 0x8) != 0 && i != 0)*/
-                    if ((temp.options & 0x8) != 0 && i != 0)
+                    else if ((temp.options & 0x8) != 0 && i != 0)
                     {
                         CMB_altmode.SelectedValue = (int) altmode.Terrain;
                     } // check relative flag

@@ -880,7 +880,7 @@ namespace MissionPlanner.GCSViews.ConfigurationView
             var render = new vlcrender();
 
             //string url = render.playurl;
-            string url = "rtsp://admin:@10.50.0.12/user=admin_password=tlJwpbo6_channel=1_stream=0.sdp";
+            string url = "rtsp://admin:@10.50.0.1/user=admin_password=tlJwpbo6_channel=1_stream=0.sdp";
             if (InputBox.Show("enter url", "enter url", ref url) == DialogResult.OK)
             {
                 MainV2.instance.setVideoURL(url);
