@@ -4385,11 +4385,14 @@ namespace MissionPlanner.GCSViews
             {
                 adsbToolStripMenuItem.Image = global::MissionPlanner.Properties.Resources.adsb_on;
                 adsb_Flag = true;
+                MainV2.comPort.setParam("ADSB_ENABLE", 1);
+
             }
             else
             {
                 adsbToolStripMenuItem.Image = global::MissionPlanner.Properties.Resources.adsb_off;
                 adsb_Flag = false;
+                MainV2.comPort.setParam("ADSB_ENABLE", 0);
             }
 
         }
@@ -4431,17 +4434,20 @@ namespace MissionPlanner.GCSViews
             catapultaToolStripMenuItem.Enabled = false;
             manualToolStripMenuItem.Enabled = true;
             //tkoff_thr_minacc
-            MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), "TKOFF_THR_MINACC"),1,0,0,0,0,0,0);
-            MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), "TKOFF_THR_MINSPD"),2, 0, 0, 0, 0, 0, 0);
-            //MainV2.comPort.doCommand(MAVLink., 0, 0, 0, 0, 0, 0, 0);
+            //MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), "TKOFF_THR_MINACC"),1,0,0,0,0,0,0);
+            //MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), "TKOFF_THR_MINSPD"),2, 0, 0, 0, 0, 0, 0);
+            MainV2.comPort.setParam("TKOFF_THR_MINACC", 10);
+            MainV2.comPort.setParam("TKOFF_THR_MINSPD", 0);
         }
 
         private void manualToolStripMenuItem_Click(object sender, EventArgs e)
         {
             manualToolStripMenuItem.Enabled = false;
             catapultaToolStripMenuItem.Enabled = true;
-            MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), "TKOFF_THR_MINACC"), 10, 0, 0, 0, 0, 0, 0);
-            MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), "TKOFF_THR_MINSPD"), 0, 0, 0, 0, 0, 0, 0);
+            //MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), "TKOFF_THR_MINACC"), 10, 0, 0, 0, 0, 0, 0);
+            //MainV2.comPort.doCommand((MAVLink.MAV_CMD)Enum.Parse(typeof(MAVLink.MAV_CMD), "TKOFF_THR_MINSPD"), 0, 0, 0, 0, 0, 0, 0);
+            MainV2.comPort.setParam("TKOFF_THR_MINACC", 1);
+            MainV2.comPort.setParam("TKOFF_THR_MINSPD", 2);
         }
 
         private void btnArm_Click(object sender, EventArgs e)

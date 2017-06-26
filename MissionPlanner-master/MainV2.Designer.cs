@@ -180,6 +180,7 @@ namespace MissionPlanner
             // MenuConnect
             // 
             this.MenuConnect.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.MenuConnect.BackColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.MenuConnect, "MenuConnect");
             this.MenuConnect.ForeColor = System.Drawing.Color.White;
             this.MenuConnect.Margin = new System.Windows.Forms.Padding(0);
@@ -190,7 +191,7 @@ namespace MissionPlanner
             // 
             this.toolStripConnectionControl.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripConnectionControl.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
-            this.toolStripConnectionControl.ForeColor = System.Drawing.Color.Black;
+            this.toolStripConnectionControl.ForeColor = System.Drawing.Color.White;
             this.toolStripConnectionControl.Margin = new System.Windows.Forms.Padding(0);
             this.toolStripConnectionControl.Name = "toolStripConnectionControl";
             this.toolStripConnectionControl.Padding = new System.Windows.Forms.Padding(0, 0, 60, 0);
@@ -199,6 +200,7 @@ namespace MissionPlanner
             // 
             // MenuDonate
             // 
+            this.MenuDonate.BackColor = System.Drawing.Color.Transparent;
             resources.ApplyResources(this.MenuDonate, "MenuDonate");
             this.MenuDonate.ForeColor = System.Drawing.Color.White;
             this.MenuDonate.Image = global::MissionPlanner.Properties.Resources.donate;
@@ -215,7 +217,8 @@ namespace MissionPlanner
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.BackgroundImage = global::MissionPlanner.Properties.Resources.bgdark;
             this.panel1.Controls.Add(this.MainMenu);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";

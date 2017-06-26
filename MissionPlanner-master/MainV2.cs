@@ -25,7 +25,7 @@ namespace MissionPlanner
         public bool fullscreen = true;
         public bool connectMenu = true;
         public int panel1Height;
-        public string video_url = "rtsp://admin:@10.50.0.12/user=admin_password=tlJwpbo6_channel=1_stream=0.sdp";
+        public string video_url = "rtsp://admin:@10.50.0.1/user=admin_password=tlJwpbo6_channel=1_stream=0.sdp";
 
         public void setVideoURL(string video)
         {
@@ -1073,14 +1073,16 @@ namespace MissionPlanner
 
         private void MenuTuning_Click(object sender, EventArgs e)
         {
+            setPass = setPassword.Instance;
             setPass.setSenhasIguais(false);
+            //setPass.Visible = true;
             setPass.ShowDialog();
             setPass.BringToFront();
             //configPassword configurar = configPassword.Instance;
             if (setPass.getSenhasIguais() == true)
             {
                 MyView.ShowScreen("SWConfig");
-                MenuConfigTune.Enabled = false;
+                //MenuConfigTune.Enabled = false;
             }
 
 
@@ -3229,7 +3231,7 @@ namespace MissionPlanner
             {
                 if (e.ClickedItem == item)
                 {
-                    item.BackColor = ThemeManager.ControlBGColor;
+                    //item.BackColor = ThemeManager.ControlBGColor;
                 }
                 else
                 {
